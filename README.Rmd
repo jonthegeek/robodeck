@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 # robodeck
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/robodeck)](https://CRAN.R-project.org/package=robodeck)
+[![Codecov test coverage](https://codecov.io/gh/jonthegeek/robodeck/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jonthegeek/robodeck?branch=main)
+[![R-CMD-check](https://github.com/jonthegeek/robodeck/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonthegeek/robodeck/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Utilize the 'OpenAI' 'API' to generate 'Quarto' slide decks quickly.
