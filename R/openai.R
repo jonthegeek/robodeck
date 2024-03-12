@@ -2,7 +2,6 @@
 
 # I'll eventually either use one of the other OpenAI packages or beekeep my own.
 
-
 #' Call an openapi API
 #'
 #' Generate a request to an openapi endpoint.
@@ -19,37 +18,18 @@ call_oai <- function(path,
                      api_key = Sys.getenv("OPENAI_API_KEY")) {
   rlang::check_dots_empty()
 
-  # TODO: Make this work in nectar (presumably by offering a split version of
-  # call_api)
-  req <- nectar:::.req_prep(
+  req <- nectar::req_prepare(
     base_url = "https://api.openai.com/v1",
     path = path,
-    query = NULL,
     body = body,
     method = "POST",
-    mime_type = NULL,
-    user_agent = "robodeck (https://jonthegeek.github.io/robodeck/)",
-    security_fn = httr2::req_auth_bearer_token,
-    security_args = list(token = api_key)
+    user_agent = "robodeck (https://jonthegeek.github.io/robodeck/)"
   )
   req <- httr2::req_timeout(req, 30)
-  resp <- nectar:::.resp_get(req)
-  resp <- nectar:::.resp_parse(
-    resp,
-    response_parser = httr2::resp_body_json,
-    response_parser_args = list()
-  )
+  req <- httr2::req_auth_bearer_token(req, token = api_key)
+  resp <- httr2::req_perform(req)
+  resp <- httr2::resp_body_json(resp)
   return(resp)
-
-  # nectar::call_api(
-  #   base_url = "https://api.openai.com/v1",
-  #   path = path,
-  #   body = body,
-  #   method = "POST",
-  #   security_fn = httr2::req_auth_bearer_token,
-  #   security_args = list(token = api_key),
-  #   user_agent = "robodeck (https://jonthegeek.github.io/robodeck/)"
-  # )
 }
 
 oai_create_chat_completion <- function(messages,
