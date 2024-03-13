@@ -80,10 +80,12 @@ test_that("gen_deck_outline returns a list of section titles with nested slide t
       return('{"A":["A1","A2"],"B":["B1","B2"]}')
     }
   )
+  test_result <- gen_deck_outline("My talk", section_titles = c("A", "B", "C"))
   expect_identical(
-    gen_deck_outline("My talk", section_titles = c("A", "B", "C")),
+    unclass(test_result),
     list(A = c("A1", "A2"), B = c("B1", "B2"))
   )
+  expect_s3_class(test_result, "robodeck_outline")
 })
 
 test_that(".to_outline fails informatively", {
@@ -93,6 +95,17 @@ test_that(".to_outline fails informatively", {
   )
   expect_snapshot(
     .to_outline(1),
+    error = TRUE
+  )
+})
+
+test_that(".to_outline fails for weird lists", {
+  expect_error(
+    .to_outline(list(1, 2)),
+    class = "robodeck_error_invalid_outline"
+  )
+  expect_snapshot(
+    .to_outline(list(1, 2)),
     error = TRUE
   )
 })

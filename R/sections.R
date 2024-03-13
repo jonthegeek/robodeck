@@ -177,6 +177,24 @@ gen_deck_section_titles <- function(title,
   }
 }
 
+.maybe_gen_section_titles <- function(section_titles,
+                                      title,
+                                      description,
+                                      minutes,
+                                      ...) {
+  if (is.null(section_titles)) {
+    return(
+      gen_deck_section_titles(
+        title,
+        ...,
+        description = description,
+        minutes = minutes
+      )
+    )
+  }
+  return(.to_section_titles(section_titles))
+}
+
 #' Update minutes component of section_titles
 #'
 #' Update the minutes component of a list of section titles, to assign

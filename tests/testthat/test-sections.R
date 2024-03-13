@@ -54,29 +54,52 @@ test_that("gen_deck_section_titles warns about n argument", {
     }
   )
   expect_warning(
-    {gen_deck_section_titles("My Talk", n = 2)},
+    {
+      gen_deck_section_titles("My Talk", n = 2)
+    },
     class = "robodeck_warning_n_not_supported"
   )
 })
 
 test_that(".to_section_titles errors for weird cases", {
   expect_error(
-    {.to_section_titles(1)},
+    {
+      .to_section_titles(1)
+    },
     class = "robodeck_error_invalid_section_titles"
   )
-  expect_snapshot({.to_section_titles(1)}, error = TRUE)
+  expect_snapshot(
+    {
+      .to_section_titles(1)
+    },
+    error = TRUE
+  )
 
   expect_error(
-    {.to_section_titles(list(list("nonames")))},
+    {
+      .to_section_titles(list(list("nonames")))
+    },
     class = "robodeck_error_invalid_section_title"
   )
-  expect_snapshot({.to_section_titles(list(list("nonames")))}, error = TRUE)
+  expect_snapshot(
+    {
+      .to_section_titles(list(list("nonames")))
+    },
+    error = TRUE
+  )
 
   expect_error(
-    {.to_section_titles(list(1))},
+    {
+      .to_section_titles(list(1))
+    },
     class = "robodeck_error_invalid_section_title"
   )
-  expect_snapshot({.to_section_titles(list(1))}, error = TRUE)
+  expect_snapshot(
+    {
+      .to_section_titles(list(1))
+    },
+    error = TRUE
+  )
 })
 
 test_that(".to_section_titles cleans up acceptable cases", {
