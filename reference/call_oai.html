@@ -48,24 +48,21 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">call_oai</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, body <span class="op">=</span> <span class="cn">NULL</span>, api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">call_oai</span><span class="op">(</span><span class="va">path</span>, <span class="va">...</span>, data <span class="op">=</span> <span class="cn">NULL</span>, api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"OPENAI_API_KEY"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>path</dt>
-<dd><p>The route to an API endpoint. Optionally, a list with the path
-plus variables to <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> into the path.</p></dd>
+<dd><p>The route to an API endpoint.</p></dd>
 
 
 <dt>...</dt>
 <dd><p>These dots are for future extensions and must be empty.</p></dd>
 
 
-<dt>body</dt>
-<dd><p>An object to use as the body of the request. If any component of
-the body is a path, pass it through <code><a href="https://fs.r-lib.org/reference/path.html" class="external-link">fs::path()</a></code> or otherwise give it the
-class "fs_path" to indicate that it is a path.</p></dd>
+<dt>data</dt>
+<dd><p>Data to include in body.</p></dd>
 
 
 <dt>api_key</dt>
