@@ -4,17 +4,14 @@
 \alias{call_oai}
 \title{Call an openapi API}
 \usage{
-call_oai(path, ..., body = NULL, api_key = Sys.getenv("OPENAI_API_KEY"))
+call_oai(path, ..., data = NULL, api_key = Sys.getenv("OPENAI_API_KEY"))
 }
 \arguments{
-\item{path}{The route to an API endpoint. Optionally, a list with the path
-plus variables to \code{\link[glue:glue]{glue::glue()}} into the path.}
+\item{path}{The route to an API endpoint.}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
-\item{body}{An object to use as the body of the request. If any component of
-the body is a path, pass it through \code{\link[fs:path]{fs::path()}} or otherwise give it the
-class "fs_path" to indicate that it is a path.}
+\item{data}{Data to include in body.}
 
 \item{api_key}{An OpenAI API key.}
 }

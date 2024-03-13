@@ -20,9 +20,7 @@ Imports:
     cli,
     glue,
     httr2,
-    nectar,
+    jsonlite,
     purrr,
     rlang,
     stringr
-Remotes:
-    jonthegeek/nectar

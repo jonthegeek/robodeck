@@ -1,63 +1,121 @@
-test_that("gen_deck_section_titles errors for chat minus choices", {
-  local_mocked_bindings(
-    oai_create_chat_completion = function(messages, ...) {
-      return(list("Bad result"))
-    }
-  )
-  expect_error(
-    {gen_deck_section_titles("My Talk")},
-    class = "robodeck_error_no_choices"
-  )
-})
-
-
 test_that("messages are assembled correctly", {
-  local_mocked_bindings(
-    oai_create_chat_completion = function(messages, ...) {
-      return(messages)
-    },
-    .parse_section_titles_result = function(result) {
-      return(result)
-    }
+  expect_snapshot(
+    .assemble_section_titles_messages(
+      "My Talk",
+      description = NULL,
+      minutes = NULL
+    )
   )
   expect_snapshot(
-    gen_deck_section_titles("My Talk")
+    .assemble_section_titles_messages(
+      "My Talk",
+      description = "My description",
+      minutes = NULL
+    )
   )
   expect_snapshot(
-    gen_deck_section_titles("My Talk", description = "My description")
+    .assemble_section_titles_messages(
+      "My Talk",
+      description = NULL,
+      minutes = 20
+    )
   )
   expect_snapshot(
-    gen_deck_section_titles("My Talk", minutes = 20)
-  )
-  expect_snapshot(
-    gen_deck_section_titles("My Talk", description = "My description", minutes = 20)
+    .assemble_section_titles_messages(
+      "My Talk",
+      description = "My description",
+      minutes = 20
+    )
   )
 })
 
 test_that("gen_deck_section_titles returns a character vector of titles", {
   local_mocked_bindings(
     oai_create_chat_completion = function(messages, ...) {
-      return(list(
-        choices = list(list(message = list(content = "A, B, C, D, E")))
-      ))
+      return("A, B, C, D, E")
     }
   )
-  expect_identical(
-    gen_deck_section_titles("My Talk"),
-    c("A", "B", "C", "D", "E")
+  test_result <- gen_deck_section_titles("My Talk")
+  expected_result <- list(
+    list(title = "A", minutes = NULL),
+    list(title = "B", minutes = NULL),
+    list(title = "C", minutes = NULL),
+    list(title = "D", minutes = NULL),
+    list(title = "E", minutes = NULL)
   )
+  expect_identical(unclass(test_result), expected_result)
+  expect_s3_class(test_result, c("robodeck_section_titles", "list"))
 })
 
 test_that("gen_deck_section_titles warns about n argument", {
   local_mocked_bindings(
     oai_create_chat_completion = function(messages, ...) {
-      return(list(
-        choices = list(list(message = list(content = "A, B, C, D, E")))
-      ))
+      return("A, B, C, D, E")
     }
   )
   expect_warning(
     {gen_deck_section_titles("My Talk", n = 2)},
     class = "robodeck_warning_n_not_supported"
+  )
+})
+
+test_that(".to_section_titles errors for weird cases", {
+  expect_error(
+    {.to_section_titles(1)},
+    class = "robodeck_error_invalid_section_titles"
+  )
+  expect_snapshot({.to_section_titles(1)}, error = TRUE)
+
+  expect_error(
+    {.to_section_titles(list(list("nonames")))},
+    class = "robodeck_error_invalid_section_title"
+  )
+  expect_snapshot({.to_section_titles(list(list("nonames")))}, error = TRUE)
+
+  expect_error(
+    {.to_section_titles(list(1))},
+    class = "robodeck_error_invalid_section_title"
+  )
+  expect_snapshot({.to_section_titles(list(1))}, error = TRUE)
+})
+
+test_that(".to_section_titles cleans up acceptable cases", {
+  given1 <- list(list(title = "A"))
+  expected1 <- list(list(title = "A", minutes = NULL))
+  test_result <- .to_section_titles(given1)
+  expect_identical(
+    unclass(test_result),
+    expected1
+  )
+  expect_s3_class(test_result, c("robodeck_section_titles", "list"))
+  given2 <- list(list(title = "A", minutes = 10))
+  expected2 <- list(list(title = "A", minutes = 10))
+  expect_identical(
+    unclass(.to_section_titles(given2)),
+    expected2
+  )
+  given3 <- c(given1, list(list(title = "B")))
+  expected3 <- c(expected1, list(list(title = "B", minutes = NULL)))
+  expect_identical(
+    unclass(.to_section_titles(given3)),
+    expected3
+  )
+  given4 <- c(given1, list(list(title = "B", minutes = 10)))
+  expected4 <- c(expected1, list(list(title = "B", minutes = 10)))
+  expect_identical(
+    unclass(.to_section_titles(given4)),
+    expected4
+  )
+  given5 <- structure(given1, class = c("robodeck_section_titles", "list"))
+  expect_identical(.to_section_titles(given5), given5)
+  expect_null(.to_section_titles(NULL))
+})
+
+test_that("Can update section_titles minutes", {
+  section_titles <- .to_section_titles(c("A", "B", "C"))
+  expect_snapshot(update_section_title_minutes(section_titles, c(1, 2, 3)))
+  expect_snapshot(
+    update_section_title_minutes(section_titles, 1),
+    error = TRUE
   )
 })

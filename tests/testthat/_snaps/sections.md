@@ -1,7 +1,7 @@
 # messages are assembled correctly
 
     Code
-      gen_deck_section_titles("My Talk")
+      .assemble_section_titles_messages("My Talk", description = NULL, minutes = NULL)
     Output
       [[1]]
       [[1]]$role
@@ -31,7 +31,8 @@
 ---
 
     Code
-      gen_deck_section_titles("My Talk", description = "My description")
+      .assemble_section_titles_messages("My Talk", description = "My description",
+        minutes = NULL)
     Output
       [[1]]
       [[1]]$role
@@ -61,7 +62,7 @@
 ---
 
     Code
-      gen_deck_section_titles("My Talk", minutes = 20)
+      .assemble_section_titles_messages("My Talk", description = NULL, minutes = 20)
     Output
       [[1]]
       [[1]]$role
@@ -91,7 +92,8 @@
 ---
 
     Code
-      gen_deck_section_titles("My Talk", description = "My description", minutes = 20)
+      .assemble_section_titles_messages("My Talk", description = "My description",
+        minutes = 20)
     Output
       [[1]]
       [[1]]$role
@@ -117,4 +119,72 @@
       Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. My description The talk is 20 minutes long.
       
       
+
+# .to_section_titles errors for weird cases
+
+    Code
+      .to_section_titles(1)
+    Condition
+      Error:
+      ! `section_titles` must be a character vector or a list.
+
+---
+
+    Code
+      .to_section_titles(list(list("nonames")))
+    Condition
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
+      ! `section_title` list elements must have `title` elements.
+
+---
+
+    Code
+      .to_section_titles(list(1))
+    Condition
+      Error in `purrr::map()`:
+      i In index: 1.
+      Caused by error:
+      ! `section_title` elements must be character vectors or lists.
+
+# Can update section_titles minutes
+
+    Code
+      update_section_title_minutes(section_titles, c(1, 2, 3))
+    Output
+      [[1]]
+      [[1]]$title
+      [1] "A"
+      
+      [[1]]$minutes
+      [1] 1
+      
+      
+      [[2]]
+      [[2]]$title
+      [1] "B"
+      
+      [[2]]$minutes
+      [1] 2
+      
+      
+      [[3]]
+      [[3]]$title
+      [1] "C"
+      
+      [[3]]$minutes
+      [1] 3
+      
+      
+      attr(,"class")
+      [1] "robodeck_section_titles" "list"                   
+
+---
+
+    Code
+      update_section_title_minutes(section_titles, 1)
+    Condition
+      Error in `update_section_title_minutes()`:
+      ! The length of `minutes` must match the length of `section_titles`.
 
