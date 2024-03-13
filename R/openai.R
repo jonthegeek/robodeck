@@ -73,4 +73,15 @@ oai_create_chat_completion <- function(messages,
   )
 }
 
+.add_chat_completion_message <- function(content,
+                                         ...,
+                                         role = c("user", "assistant"),
+                                         messages = list()) {
+  rlang::check_dots_empty()
+  role <- rlang::arg_match(role)
+  return(
+    c(messages, list(list(role = role, content = content)))
+  )
+}
+
 # nocov end

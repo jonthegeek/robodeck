@@ -11,7 +11,7 @@
 #'
 #' @return A character vector of titles for the major sections of the talk.
 #' @export
-gen_section_titles <- function(title,
+gen_deck_section_titles <- function(title,
                                ...,
                                description = NULL,
                                minutes = NULL) {
@@ -58,21 +58,18 @@ gen_section_titles <- function(title,
 }
 
 .assemble_section_titles_messages <- function(title, description, minutes) {
-  preprompt <- list(
-    list(
-      role = "user",
-      content = "Create a comma-separated list of titles for the major sections of a 20-minute conference talk."
-    ),
-    list(
-      role = "assistant",
-      content = "Introduction, Methods, Results, Discussion, Conclusion"
-    )
+  msg <- .add_chat_completion_message(
+    "Create a comma-separated list of titles for the major sections of a 20-minute conference talk."
   )
-
+  msg <- .add_chat_completion_message(
+    "Introduction, Methods, Results, Discussion, Conclusion",
+    role = "assistant",
+    messages = msg
+  )
   return(
-    c(
-      preprompt,
-      .assemble_section_titles_msg(title, description, minutes)
+    .add_chat_completion_message(
+      .assemble_section_titles_msg(title, description, minutes),
+      messages = msg
     )
   )
 }
@@ -84,12 +81,9 @@ gen_section_titles <- function(title,
   )
   time_msg <- glue::glue("The talk is {minutes} minutes long.")
   return(
-    list(
-      role = "user",
-      content = glue::glue_collapse(
-        c(title_msg, description, time_msg),
-        sep = " "
-      )
+    glue::glue_collapse(
+      c(title_msg, description, time_msg),
+      sep = " "
     )
   )
 }
