@@ -1,3 +1,15 @@
+#' Generate an outline of talk slides
+#'
+#' Generate a list of slide titles nested inside the major sections of a
+#' conference talk.
+#'
+#' @inheritParams .shared-parameters
+#' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
+#'
+#' @return A list of character vectors. The name of each vector is the title of
+#'   a major section of the talk, and the vector contains the titles of the
+#'   slides within that section.
+#' @export
 gen_deck_outline <- function(title,
                              ...,
                              description = NULL,

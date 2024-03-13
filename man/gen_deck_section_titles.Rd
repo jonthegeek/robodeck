@@ -17,7 +17,8 @@ would like to add to the prompt).}
 \item{minutes}{(optional) The length of the talk in minutes.}
 }
 \value{
-A character vector of titles for the major sections of the talk.
+A list of lists, each of which contains a title for a major sections
+of the talk, and an empty \code{minutes} object.
 }
 \description{
 Generate a comma-separated list of titles for the major sections of a
