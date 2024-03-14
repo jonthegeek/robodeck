@@ -79,5 +79,13 @@
       .to_outline(1)
     Condition
       Error:
-      ! `content` must be a character vector or NULL.
+      ! `content` must be a character vector, list, or NULL.
+
+# .to_outline fails for weird lists
+
+    Code
+      .to_outline(list(1, 2))
+    Condition
+      Error:
+      ! `content` must be a named list of character vectors.
 

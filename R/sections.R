@@ -3,13 +3,11 @@
 #' Generate a comma-separated list of titles for the major sections of a
 #' conference talk.
 #'
-#' @param title The title of the talk.
+#' @inheritParams .shared-parameters
 #' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
-#' @param description (optional) A description of the talk (or any other text you
-#'   would like to add to the prompt).
-#' @param minutes (optional) The length of the talk in minutes.
 #'
-#' @return A character vector of titles for the major sections of the talk.
+#' @return A list of lists, each of which contains a title for a major sections
+#'   of the talk, and an empty `minutes` object.
 #' @export
 gen_deck_section_titles <- function(title,
                                     ...,
@@ -179,16 +177,45 @@ gen_deck_section_titles <- function(title,
   }
 }
 
-update_section_title_minutes <- function(section_titles, minutes) {
+.maybe_gen_section_titles <- function(section_titles,
+                                      title,
+                                      description,
+                                      minutes,
+                                      ...) {
+  if (is.null(section_titles)) {
+    return(
+      gen_deck_section_titles(
+        title,
+        ...,
+        description = description,
+        minutes = minutes
+      )
+    )
+  }
+  return(.to_section_titles(section_titles))
+}
+
+#' Update minutes component of section_titles
+#'
+#' Update the minutes component of a list of section titles, to assign
+#' approximate times to those sections.
+#'
+#' @inheritParams .shared-parameters
+#' @param section_minutes A numeric vector of minutes for each section. This
+#'   vector must be the same length as `section_titles`.
+#'
+#' @return An updated list of section titles and their length in minutes.
+#' @export
+update_section_title_minutes <- function(section_titles, section_minutes) {
   section_titles <- .to_section_titles(section_titles)
-  if (length(section_titles) != length(minutes)) {
+  if (length(section_titles) != length(section_minutes)) {
     cli::cli_abort(
-      "The length of {.arg minutes} must match the length of {.arg section_titles}.",
+      "The length of {.arg section_minutes} must match the length of {.arg section_titles}.",
       class = "robodeck_error_invalid_section_title_minutes"
     )
   }
   for (i in seq_along(section_titles)) {
-    section_titles[[i]]$minutes <- minutes[[i]]
+    section_titles[[i]]$minutes <- section_minutes[[i]]
   }
   return(section_titles)
 }

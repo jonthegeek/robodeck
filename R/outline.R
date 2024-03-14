@@ -1,3 +1,15 @@
+#' Generate an outline of talk slides
+#'
+#' Generate a list of slide titles nested inside the major sections of a
+#' conference talk.
+#'
+#' @inheritParams .shared-parameters
+#' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
+#'
+#' @return A list of character vectors. The name of each vector is the title of
+#'   a major section of the talk, and the vector contains the titles of the
+#'   slides within that section.
+#' @export
 gen_deck_outline <- function(title,
                              ...,
                              description = NULL,
@@ -20,16 +32,13 @@ gen_deck_outline <- function(title,
                              minutes,
                              section_titles) {
   dots <- .validate_create_chat_completion_dots(..., default_max_tokens = 300)
-  if (is.null(section_titles)) {
-    section_titles <- gen_deck_section_titles(
-      title,
-      ...,
-      description = description,
-      minutes = minutes
-    )
-  } else {
-    section_titles <- .to_section_titles(section_titles)
-  }
+  section_titles <- .maybe_gen_section_titles(
+    title = title,
+    description = description,
+    minutes = minutes,
+    section_titles = section_titles,
+    ...
+  )
   return(
     oai_create_chat_completion(
       messages = .assemble_outline_messages(
@@ -111,7 +120,7 @@ gen_deck_outline <- function(title,
                                 ...,
                                 call = rlang::caller_env()) {
   cli::cli_abort(
-    "{.arg content} must be a character vector or NULL.",
+    "{.arg content} must be a character vector, list, or NULL.",
     class = "robodeck_error_invalid_outline",
     call = call
   )
@@ -124,5 +133,48 @@ gen_deck_outline <- function(title,
 
 #' @export
 .to_outline.character <- function(content, ...) {
-  return(jsonlite::fromJSON(content))
+  content <- jsonlite::fromJSON(content)
+  return(.to_outline(content))
+}
+
+#' @export
+.to_outline.list <- function(content, ..., call = rlang::caller_env()) {
+  if (rlang::is_named(content) && purrr::every(content, is.character)) {
+    return(
+      structure(
+        content,
+        class = c("robodeck_outline", "list")
+      )
+    )
+  }
+  cli::cli_abort(
+    "{.arg content} must be a named list of character vectors.",
+    class = "robodeck_error_invalid_outline",
+    call = call
+  )
+}
+
+#' @export
+.to_outline.robodeck_outline <- function(content, ...) {
+  return(content)
+}
+
+.maybe_gen_outline <- function(outline,
+                               title,
+                               description,
+                               minutes,
+                               section_titles,
+                               ...) {
+  if (is.null(outline)) {
+    return(
+      gen_deck_outline(
+        title,
+        ...,
+        description = description,
+        minutes = minutes,
+        section_titles = section_titles
+      )
+    )
+  }
+  return(.to_outline(outline))
 }

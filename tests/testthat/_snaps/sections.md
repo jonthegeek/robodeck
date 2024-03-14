@@ -186,5 +186,5 @@
       update_section_title_minutes(section_titles, 1)
     Condition
       Error in `update_section_title_minutes()`:
-      ! The length of `minutes` must match the length of `section_titles`.
+      ! The length of `section_minutes` must match the length of `section_titles`.
 
