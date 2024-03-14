@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# robodeck
+# robodeck <a href="https://jonthegeek.github.io/robodeck/"><img src="man/figures/logo.svg" align="right" height="240" alt="robodeck website" /></a>
 
 <!-- badges: start -->
 
@@ -14,7 +14,7 @@ coverage](https://codecov.io/gh/jonthegeek/robodeck/branch/main/graph/badge.svg)
 [![R-CMD-check](https://github.com/jonthegeek/robodeck/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonthegeek/robodeck/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Utilize the ‘OpenAI’ ‘API’ to generate ‘Quarto’ slide decks quickly.
+Utilize the OpenAI API to generate Quarto slide decks quickly.
 
 ## Installation
 
@@ -22,8 +22,8 @@ You can install the development version of robodeck from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("jonthegeek/robodeck")
+# install.packages("pak")
+pak::pak("jonthegeek/robodeck")
 ```
 
 ## Usage
