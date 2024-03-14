@@ -56,6 +56,18 @@ gen_deck_outline <- function(title,
                                        description,
                                        minutes,
                                        section_titles) {
+  msg <- .add_chat_completion_message(
+    paste(
+      "Given a section titled 'A' with slides 'A1' and 'A2',",
+      "and a section titled 'B' with slides 'B1' and 'B2',",
+      "return a json object with slide titles nested inside section titles."
+    )
+  )
+  msg <- .add_chat_completion_message(
+    '{"A":["A1","A2"],"B":["B1","B2"]}',
+    role = "assistant",
+    messages = msg
+  )
   return(
     .add_chat_completion_message(
       .assemble_outline_msg(
@@ -63,7 +75,8 @@ gen_deck_outline <- function(title,
         description,
         minutes,
         section_titles
-      )
+      ),
+      messages = msg
     )
   )
 }
@@ -72,16 +85,24 @@ gen_deck_outline <- function(title,
                                   description,
                                   minutes,
                                   section_titles) {
+  title_msg <- glue::glue("Great! Now generate slide titles for a conference talk titled '{title}'.")
+  title_msg <- glue::glue_collapse(
+    c(
+      title_msg,
+      glue::glue("The talk is {minutes} minutes long.")
+    ),
+    sep = " "
+  )
   talk_basics_msg <- .assemble_talk_basics_msg(
-    glue::glue("Generate slide titles for a conference talk titled '{title}'."),
-    description,
-    minutes
+    title_msg,
+    description
   )
   section_titles_prompt <- .assemble_section_titles_prompt(section_titles)
   return(
     glue::glue(
       talk_basics_msg,
       section_titles_prompt,
+      "Generate at least one slide title for each section, about 1 title per minute.",
       "Return a json object with slide titles nested inside section titles.",
       .sep = " "
     )
@@ -96,7 +117,7 @@ gen_deck_outline <- function(title,
     ),
     sep = ", "
   )
-  return(glue::glue("Major sections: {section_descriptions}."))
+  return(glue::glue("Sections: {section_descriptions}."))
 }
 
 .assemble_section_title_prompt <- function(section_title) {
