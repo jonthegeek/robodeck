@@ -62,17 +62,27 @@ gen_deck_section_titles <- function(title,
     "Perfect! Now create a comma-separated list of titles for the major ",
     "sections of a conference talk titled '{title}'."
   )
-  return(
-    .assemble_talk_basics_msg(title_msg, description, minutes)
+  title_msg <- glue::glue_collapse(
+    c(title_msg, .assemble_section_time_msg(minutes)),
+    sep = " "
   )
+  return(.assemble_talk_basics_msg(title_msg, description))
 }
 
-.assemble_talk_basics_msg <- function(title_msg, description, minutes) {
-  time_msg <- glue::glue("The talk is {minutes} minutes long.")
+.assemble_talk_basics_msg <- function(title_msg, description) {
+  return(glue::glue_collapse(c(title_msg, description), sep = " "))
+}
+
+.assemble_section_time_msg <- function(minutes) {
+  if (is.null(minutes) || minutes <= 0) {
+    return(character(0))
+  }
+  n_sections_low <- ceiling(minutes/5)
+  n_sections_high <- ceiling(minutes/2)
   return(
-    glue::glue_collapse(
-      c(title_msg, description, time_msg),
-      sep = " "
+    glue::glue(
+      "The talk is {minutes} minutes long. ",
+      "It should have between {n_sections_low} and {n_sections_high} sections."
     )
   )
 }
@@ -183,14 +193,13 @@ gen_deck_section_titles <- function(title,
                                       minutes,
                                       ...) {
   if (is.null(section_titles)) {
-    return(
-      gen_deck_section_titles(
-        title,
-        ...,
-        description = description,
-        minutes = minutes
-      )
+    section_titles <- gen_deck_section_titles(
+      title,
+      ...,
+      description = description,
+      minutes = minutes
     )
+    return(section_titles)
   }
   return(.to_section_titles(section_titles))
 }

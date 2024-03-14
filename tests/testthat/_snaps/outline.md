@@ -9,7 +9,23 @@
       [1] "user"
       
       [[1]]$content
-      Generate slide titles for a conference talk titled 'My Talk'. Major sections: 'A', 'B'. Return a json object with slide titles nested inside section titles.
+      [1] "Given a section titled 'A' with slides 'A1' and 'A2', and a section titled 'B' with slides 'B1' and 'B2', return a json object with slide titles nested inside section titles."
+      
+      
+      [[2]]
+      [[2]]$role
+      [1] "assistant"
+      
+      [[2]]$content
+      [1] "{\"A\":[\"A1\",\"A2\"],\"B\":[\"B1\",\"B2\"]}"
+      
+      
+      [[3]]
+      [[3]]$role
+      [1] "user"
+      
+      [[3]]$content
+      Great! Now generate slide titles for a conference talk titled 'My Talk'. Sections: 'A', 'B'. Generate at least one slide title for each section, about 1 title per minute. Return a json object with slide titles nested inside section titles.
       
       
 
@@ -24,7 +40,23 @@
       [1] "user"
       
       [[1]]$content
-      Generate slide titles for a conference talk titled 'My Talk'. My description Major sections: 'A', 'B'. Return a json object with slide titles nested inside section titles.
+      [1] "Given a section titled 'A' with slides 'A1' and 'A2', and a section titled 'B' with slides 'B1' and 'B2', return a json object with slide titles nested inside section titles."
+      
+      
+      [[2]]
+      [[2]]$role
+      [1] "assistant"
+      
+      [[2]]$content
+      [1] "{\"A\":[\"A1\",\"A2\"],\"B\":[\"B1\",\"B2\"]}"
+      
+      
+      [[3]]
+      [[3]]$role
+      [1] "user"
+      
+      [[3]]$content
+      Great! Now generate slide titles for a conference talk titled 'My Talk'. My description Sections: 'A', 'B'. Generate at least one slide title for each section, about 1 title per minute. Return a json object with slide titles nested inside section titles.
       
       
 
@@ -39,7 +71,23 @@
       [1] "user"
       
       [[1]]$content
-      Generate slide titles for a conference talk titled 'My Talk'. The talk is 20 minutes long. Major sections: 'A', 'B'. Return a json object with slide titles nested inside section titles.
+      [1] "Given a section titled 'A' with slides 'A1' and 'A2', and a section titled 'B' with slides 'B1' and 'B2', return a json object with slide titles nested inside section titles."
+      
+      
+      [[2]]
+      [[2]]$role
+      [1] "assistant"
+      
+      [[2]]$content
+      [1] "{\"A\":[\"A1\",\"A2\"],\"B\":[\"B1\",\"B2\"]}"
+      
+      
+      [[3]]
+      [[3]]$role
+      [1] "user"
+      
+      [[3]]$content
+      Great! Now generate slide titles for a conference talk titled 'My Talk'. The talk is 20 minutes long. Sections: 'A', 'B'. Generate at least one slide title for each section, about 1 title per minute. Return a json object with slide titles nested inside section titles.
       
       
 
@@ -54,7 +102,23 @@
       [1] "user"
       
       [[1]]$content
-      Generate slide titles for a conference talk titled 'My Talk'. My description The talk is 20 minutes long. Major sections: 'A', 'B'. Return a json object with slide titles nested inside section titles.
+      [1] "Given a section titled 'A' with slides 'A1' and 'A2', and a section titled 'B' with slides 'B1' and 'B2', return a json object with slide titles nested inside section titles."
+      
+      
+      [[2]]
+      [[2]]$role
+      [1] "assistant"
+      
+      [[2]]$content
+      [1] "{\"A\":[\"A1\",\"A2\"],\"B\":[\"B1\",\"B2\"]}"
+      
+      
+      [[3]]
+      [[3]]$role
+      [1] "user"
+      
+      [[3]]$content
+      Great! Now generate slide titles for a conference talk titled 'My Talk'. The talk is 20 minutes long. My description Sections: 'A', 'B'. Generate at least one slide title for each section, about 1 title per minute. Return a json object with slide titles nested inside section titles.
       
       
 
@@ -69,7 +133,23 @@
       [1] "user"
       
       [[1]]$content
-      Generate slide titles for a conference talk titled 'My Talk'. My description The talk is 20 minutes long. Major sections: 'A' (8 minutes), 'B' (12 minutes). Return a json object with slide titles nested inside section titles.
+      [1] "Given a section titled 'A' with slides 'A1' and 'A2', and a section titled 'B' with slides 'B1' and 'B2', return a json object with slide titles nested inside section titles."
+      
+      
+      [[2]]
+      [[2]]$role
+      [1] "assistant"
+      
+      [[2]]$content
+      [1] "{\"A\":[\"A1\",\"A2\"],\"B\":[\"B1\",\"B2\"]}"
+      
+      
+      [[3]]
+      [[3]]$role
+      [1] "user"
+      
+      [[3]]$content
+      Great! Now generate slide titles for a conference talk titled 'My Talk'. The talk is 20 minutes long. My description Sections: 'A' (8 minutes), 'B' (12 minutes). Generate at least one slide title for each section, about 1 title per minute. Return a json object with slide titles nested inside section titles.
       
       
 

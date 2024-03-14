@@ -22,7 +22,7 @@ gen_deck <- function(title,
                      minutes = NULL,
                      section_titles = NULL,
                      outline = NULL,
-                     additional_information = "The tone of the talk should be fun and upbeat. Use emoji for bulletted lists.") {
+                     additional_information = "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulletted lists.") {
   result <- .gen_deck_raw(
     title,
     ...,
@@ -43,11 +43,6 @@ gen_deck <- function(title,
                           section_titles,
                           outline,
                           additional_information) {
-  total_slides <- length(outline) + sum(lengths(outline))
-  dots <- .validate_create_chat_completion_dots(
-    ...,
-    default_max_tokens = 100 * total_slides
-  )
   section_titles <- .maybe_gen_section_titles(
     title = title,
     description = description,
@@ -62,6 +57,11 @@ gen_deck <- function(title,
     section_titles = section_titles,
     outline = outline,
     ...
+  )
+  total_slides <- length(outline) + sum(lengths(outline))
+  dots <- .validate_create_chat_completion_dots(
+    ...,
+    default_max_tokens = 100 * total_slides
   )
   deck <- oai_create_chat_completion(
     messages = .assemble_deck_messages(
@@ -103,16 +103,26 @@ gen_deck <- function(title,
                                section_titles,
                                outline,
                                additional_information) {
+  title_msg <- glue::glue_collapse(
+    c(
+      glue::glue(
+        "Generate Quarto markdown to produce revealjs slides for a conference talk titled '{title}'."
+      ),
+      glue::glue("The talk should take {minutes} minutes to deliver.")
+    ),
+    sep = " "
+  )
   talk_basics_msg <- .assemble_talk_basics_msg(
-    glue::glue("Generate Quarto markdown to produce revealjs slides for a conference talk titled '{title}'."),
-    description,
-    minutes
+    title_msg,
+    description
   )
   section_titles_prompt <- .assemble_section_titles_prompt(section_titles)
   placeholder_prompt <- paste(
-    "Include a placeholder on every slide, for either",
-    "an image such as `![A photograph of an elephant](elephant.png)`",
-    "or a code block such as \n```{r}\n# description of this code\n```"
+    "Include an image tag or a code block on every slide, separate from any bulleted list.",
+    "Image placeholders should describe the image, such as",
+    "`![A photograph of an elephant](elephant.png)`\n",
+    "Code blocks should describe the intended code with a comment, such as\n",
+    "```{r}\n# description of this code\n```"
   )
   outline_prompt <- .assemble_outline_prompt(outline)
   return(
@@ -161,11 +171,13 @@ gen_deck <- function(title,
 }
 
 .trim_deck <- function(deck, outline) {
-  if (!length(deck)) {
-    return(deck)
+  if (isTRUE(nzchar(deck)) && !is.na(deck)) {
+    trimmed <- .remove_deck_beginning_noise(deck, outline)
+    if (nzchar(trimmed)) {
+      return(.remove_deck_end_noise(trimmed))
+    }
   }
-  deck <- .remove_deck_beginning_noise(deck, outline)
-  return(.remove_deck_end_noise(deck))
+  return(deck)
 }
 
 .remove_deck_beginning_noise <- function(deck, outline) {
@@ -175,7 +187,7 @@ gen_deck <- function(title,
 }
 
 .remove_deck_end_noise <- function(deck) {
-  return(stringr::str_remove(deck, "\\s+```\\s+$"))
+  return(stringr::str_remove(deck, "(\\s*```\\s*)+$"))
 }
 
 .to_deck <- function(content, ..., call = rlang::caller_env()) {

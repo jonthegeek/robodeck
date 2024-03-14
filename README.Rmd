@@ -22,7 +22,10 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/jonthegeek/robodeck/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonthegeek/robodeck/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Utilize the OpenAI API to generate Quarto slide decks quickly.
+Sometimes it's easier to *edit* a deck than to *create* one from scratch.
+Enter robodeck!
+
+This extremely experimental package uses the [OpenAI API](https://platform.openai.com/docs/api-reference/) to generate Quarto slide decks quickly.
 
 ## Installation
 
@@ -35,7 +38,36 @@ pak::pak("jonthegeek/robodeck")
 
 ## Usage
 
-Add usage information and examples here.
+We do not recommend using the output of this package without editing.
+That said, the deck below was generated without editing, as an example.
+
+```{r full-deck}
+library(robodeck)
+description <- 
+  "robodeck is an R package that utilizes the OpenAI API 
+   (https://platform.openai.com/docs/api-reference/) to quickly generate Quarto 
+   slide decks. In this lightning talk I will demonstrate how to use 
+   robodeck::gen_deck() to automatically generate a slide deck from just a title 
+   and description, and why you should carefully edit the results!" |> 
+  stringr::str_squish()
+
+# Store an API key in an environment variable called OPENAI_API_KEY.
+
+deck_markdown <- gen_deck(
+  title = "Introducing robodeck",
+  description = description,
+  minutes = 5
+)
+```
+
+```{r full-deck-result, echo=FALSE}
+paste("| ", stringr::str_split_1(deck_markdown, "\n")) |> 
+  cat(sep = "\n")
+```
+
+Note that function calls will hit the OpenAI API, which is not free.
+At the time of this writing, experiments with the API while writing this package have incurred a total cost of about $0.13, almost all of that while experimenting with the more expensive "GPT-4-turbo" API.
+By default, robodeck uses the "GPT-3.5-turbo" API, which should cost <$0.01 to generate a deck.
 
 ## Code of Conduct
 
