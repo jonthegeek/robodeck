@@ -22,7 +22,7 @@ gen_deck <- function(title,
                      minutes = NULL,
                      section_titles = NULL,
                      outline = NULL,
-                     additional_information = "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulletted lists.") {
+                     additional_information = "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists.") {
   result <- .gen_deck_raw(
     title,
     ...,
@@ -124,6 +124,10 @@ gen_deck <- function(title,
     "Code blocks should describe the intended code with a comment, such as\n",
     "```{r}\n# description of this code\n```"
   )
+  bullets_prompt <- paste(
+    "Include a bulleted list on every slide.",
+    "Every bulleted list should contain at least 2 bullets."
+  )
   outline_prompt <- .assemble_outline_prompt(outline)
   return(
     paste(
@@ -131,6 +135,7 @@ gen_deck <- function(title,
       section_titles_prompt,
       placeholder_prompt,
       additional_information,
+      bullets_prompt,
       outline_prompt,
       sep = "\n\n"
     )

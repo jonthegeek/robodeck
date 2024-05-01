@@ -21,6 +21,5 @@ A list of lists, each of which contains a title for a major sections
 of the talk, and an empty \code{minutes} object.
 }
 \description{
-Generate a comma-separated list of titles for the major sections of a
-conference talk.
+Generate a list of titles for the major sections of a conference talk.
 }

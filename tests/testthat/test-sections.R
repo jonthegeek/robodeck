@@ -29,7 +29,7 @@ test_that("messages are assembled correctly", {
   )
 })
 
-test_that("gen_deck_section_titles returns a character vector of titles", {
+test_that("gen_deck_section_titles returns titles object", {
   local_mocked_bindings(
     oai_create_chat_completion = function(messages, ...) {
       return("A, B, C, D, E")
@@ -140,5 +140,23 @@ test_that("Can update section_titles minutes", {
   expect_snapshot(
     update_section_title_minutes(section_titles, 1),
     error = TRUE
+  )
+})
+
+test_that("Can extract section titles", {
+  section_titles <- .to_section_titles(c("A", "B", "C"))
+  expect_identical(
+    extract_section_titles(section_titles),
+    c("A", "B", "C")
+  )
+
+  section_titles <- list(
+    list(title = "C", minutes = NULL),
+    list(title = "B", minutes = NULL),
+    list(title = "A", minutes = NULL)
+  )
+  expect_identical(
+    extract_section_titles(section_titles),
+    c("C", "B", "A")
   )
 })
