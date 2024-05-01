@@ -1,7 +1,6 @@
 #' Generate titles for talk sections
 #'
-#' Generate a comma-separated list of titles for the major sections of a
-#' conference talk.
+#' Generate a list of titles for the major sections of a conference talk.
 #'
 #' @inheritParams .shared-parameters
 #' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
@@ -227,4 +226,29 @@ update_section_title_minutes <- function(section_titles, section_minutes) {
     section_titles[[i]]$minutes <- section_minutes[[i]]
   }
   return(section_titles)
+}
+
+#' Extract section titles
+#'
+#' Convert a `robodeck_section_titles` object to a character vector of section
+#' titles (removing the "minutes" component).
+#'
+#' @param section_titles A `robodeck_section_titles` object.
+#'
+#' @return A character vector of section titles.
+#' @export
+#'
+#' @examples
+#' # gen_deck_section_titles() returns an object that contains both the section
+#' # titles and their anticipated length.
+#'
+#' section_titles_object <- list(
+#'   list(title = "Slide 1", minutes = NULL),
+#'   list(title = "Slide 2", minutes = NULL),
+#'   list(title = "Slide 3", minutes = NULL)
+#' )
+#' extract_section_titles(section_titles_object)
+extract_section_titles <- function(section_titles) {
+  section_titles <- .to_section_titles(section_titles)
+  return(purrr::map_chr(section_titles, "title"))
 }
