@@ -12,7 +12,7 @@ gen_deck(
   section_titles = NULL,
   outline = NULL,
   additional_information =
-    "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulletted lists."
+    "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists."
 )
 }
 \arguments{
