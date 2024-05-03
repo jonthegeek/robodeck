@@ -10,12 +10,6 @@ License: MIT + file LICENSE
 URL: https://github.com/jonthegeek/robodeck,
     https://jonthegeek.github.io/robodeck/
 BugReports: https://github.com/jonthegeek/robodeck/issues
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
 Imports: 
     cli,
     glue,
@@ -24,3 +18,9 @@ Imports:
     purrr,
     rlang,
     stringr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
