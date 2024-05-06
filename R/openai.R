@@ -18,10 +18,10 @@ base_request <- httr2::req_user_agent(
 #'
 #' @return The response from the endpoint.
 #' @keywords internal
-call_oai <- function(path,
-                     ...,
-                     data = NULL,
-                     api_key = Sys.getenv("OPENAI_API_KEY")) {
+oai_call_api <- function(path,
+                         ...,
+                         data = NULL,
+                         api_key = Sys.getenv("OPENAI_API_KEY")) {
   rlang::check_dots_empty()
 
   req <- httr2::req_url_path_append(base_request, path)
@@ -63,7 +63,7 @@ oai_create_chat_completion <- function(messages,
   }
   model <- rlang::arg_match(model)
 
-  result <- call_oai(
+  result <- oai_call_api(
     path = "chat/completions",
     data = list(
       messages = messages,
@@ -86,7 +86,8 @@ oai_create_chat_completion <- function(messages,
   )
 }
 
-.validate_create_chat_completion_dots <- function(..., default_max_tokens = 100) {
+.validate_create_chat_completion_dots <- function(...,
+                                                  default_max_tokens = 100) {
   dots <- rlang::list2(...)
   if (length(dots$n)) {
     cli::cli_warn(
