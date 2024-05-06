@@ -7,6 +7,7 @@
 gen_deck(
   title,
   ...,
+  api_key = oai_get_default_key(),
   description = NULL,
   minutes = NULL,
   section_titles = NULL,
@@ -19,6 +20,8 @@ gen_deck(
 \item{title}{The title of the talk.}
 
 \item{...}{Additional parameters passed on to the OpenAI Chat Completion API.}
+
+\item{api_key}{An OpenAI API key.}
 
 \item{description}{(optional) A description of the talk (or any other text you
 would like to add to the prompt).}

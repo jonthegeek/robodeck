@@ -5,6 +5,7 @@
 #' slide deck.
 #'
 #' @inheritParams .shared-parameters
+#' @inheritParams oai_call_api
 #' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
 #' @param outline A list of character vectors as returned by
 #'   [gen_deck_outline()]. The name of each vector is the title of a major
@@ -18,6 +19,7 @@
 #' @export
 gen_deck <- function(title,
                      ...,
+                     api_key = oai_get_default_key(),
                      description = NULL,
                      minutes = NULL,
                      section_titles = NULL,
@@ -26,6 +28,7 @@ gen_deck <- function(title,
   result <- .gen_deck_raw(
     title,
     ...,
+    api_key = api_key,
     description = description,
     minutes = minutes,
     section_titles = section_titles,
@@ -38,6 +41,7 @@ gen_deck <- function(title,
 
 .gen_deck_raw <- function(title,
                           ...,
+                          api_key = oai_get_default_key(),
                           description,
                           minutes,
                           section_titles,
@@ -72,6 +76,7 @@ gen_deck <- function(title,
       outline = outline,
       additional_information
     ),
+    api_key = api_key,
     !!!dots
   )
   return(.trim_deck(deck, outline))

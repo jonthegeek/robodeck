@@ -4,7 +4,7 @@
 \alias{oai_call_api}
 \title{Call an openapi API}
 \usage{
-oai_call_api(path, ..., data = NULL, api_key = Sys.getenv("OPENAI_API_KEY"))
+oai_call_api(path, ..., data = NULL, api_key = oai_get_default_key())
 }
 \arguments{
 \item{path}{The route to an API endpoint.}

@@ -3,6 +3,7 @@
 #' Generate a list of titles for the major sections of a conference talk.
 #'
 #' @inheritParams .shared-parameters
+#' @inheritParams oai_call_api
 #' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
 #'
 #' @return A list of lists, each of which contains a title for a major sections
@@ -10,11 +11,13 @@
 #' @export
 gen_deck_section_titles <- function(title,
                                     ...,
+                                    api_key = oai_get_default_key(),
                                     description = NULL,
                                     minutes = NULL) {
   result <- .gen_section_titles_raw(
     title,
     ...,
+    api_key = api_key,
     description = description,
     minutes = minutes
   )
@@ -24,6 +27,7 @@ gen_deck_section_titles <- function(title,
 
 .gen_section_titles_raw <- function(title,
                                     ...,
+                                    api_key = oai_get_default_key(),
                                     description,
                                     minutes) {
   dots <- .validate_create_chat_completion_dots(...)
@@ -34,6 +38,7 @@ gen_deck_section_titles <- function(title,
         description = description,
         minutes = minutes
       ),
+      api_key = api_key,
       !!!dots
     )
   )

@@ -4,12 +4,20 @@
 \alias{gen_deck_section_titles}
 \title{Generate titles for talk sections}
 \usage{
-gen_deck_section_titles(title, ..., description = NULL, minutes = NULL)
+gen_deck_section_titles(
+  title,
+  ...,
+  api_key = oai_get_default_key(),
+  description = NULL,
+  minutes = NULL
+)
 }
 \arguments{
 \item{title}{The title of the talk.}
 
 \item{...}{Additional parameters passed on to the OpenAI Chat Completion API.}
+
+\item{api_key}{An OpenAI API key.}
 
 \item{description}{(optional) A description of the talk (or any other text you
 would like to add to the prompt).}
