@@ -12,8 +12,7 @@ gen_deck(
   minutes = NULL,
   section_titles = NULL,
   outline = NULL,
-  additional_information =
-    "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists."
+  additional_information = robodock_slide_style()
 )
 }
 \arguments{

@@ -1,4 +1,8 @@
 test_that("messages are assembled correctly", {
+  # m1 <- "Create a comma-separated list of titles for the major sections of a 20-minute conference talk."
+  # m2 <- "Introduction, Methods, Results, Discussion, Conclusion"
+  # m3 <- "Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'."
+
   expect_snapshot(
     .assemble_section_titles_messages(
       "My Talk",

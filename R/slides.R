@@ -24,7 +24,7 @@ gen_deck <- function(title,
                      minutes = NULL,
                      section_titles = NULL,
                      outline = NULL,
-                     additional_information = "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists.") {
+                     additional_information = robodock_slide_style()) {
   result <- .gen_deck_raw(
     title,
     ...,
@@ -37,6 +37,22 @@ gen_deck <- function(title,
   )
 
   return(.to_deck(result))
+}
+
+#' Description of the overall feel of the slides
+#'
+#' This is a placeholder for an upcoming, more complex function.
+#'
+#' @return A string describing the style of the slides.
+#' @export
+#'
+#' @examples
+#' robodock_slide_style()
+robodock_slide_style <- function() {
+  paste(
+    "The tone of the talk should be fun and upbeat.",
+    "Use an emoji at the start of every bullet in bulleted lists."
+  )
 }
 
 .gen_deck_raw <- function(title,
@@ -228,4 +244,24 @@ gen_deck <- function(title,
 #' @export
 .to_deck.robodeck_deck <- function(content, ...) {
   return(content)
+}
+
+.maybe_gen_outline <- function(outline,
+                               title,
+                               description,
+                               minutes,
+                               section_titles,
+                               ...) {
+  if (is.null(outline)) {
+    return(
+      gen_deck_outline(
+        title,
+        ...,
+        description = description,
+        minutes = minutes,
+        section_titles = section_titles
+      )
+    )
+  }
+  return(.to_outline(outline))
 }

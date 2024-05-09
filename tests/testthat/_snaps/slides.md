@@ -66,3 +66,10 @@
       Error:
       ! `content` must be a character vector or NULL.
 
+# robodock_slide_style() returns expected text
+
+    Code
+      robodock_slide_style()
+    Output
+      [1] "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists."
+

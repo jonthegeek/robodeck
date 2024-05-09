@@ -185,22 +185,19 @@ gen_deck_outline <- function(title,
   return(content)
 }
 
-.maybe_gen_outline <- function(outline,
-                               title,
-                               description,
-                               minutes,
-                               section_titles,
-                               ...) {
-  if (is.null(outline)) {
-    return(
-      gen_deck_outline(
-        title,
-        ...,
-        description = description,
-        minutes = minutes,
-        section_titles = section_titles
-      )
+.maybe_gen_section_titles <- function(section_titles,
+                                      title,
+                                      description,
+                                      minutes,
+                                      ...) {
+  if (is.null(section_titles)) {
+    section_titles <- gen_deck_section_titles(
+      title,
+      ...,
+      description = description,
+      minutes = minutes
     )
+    return(section_titles)
   }
-  return(.to_outline(outline))
+  return(.to_section_titles(section_titles))
 }

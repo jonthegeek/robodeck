@@ -70,7 +70,7 @@ gen_deck_section_titles <- function(title,
     c(title_msg, .assemble_section_time_msg(minutes)),
     sep = " "
   )
-  return(.assemble_talk_basics_msg(title_msg, description))
+  return(unclass(.assemble_talk_basics_msg(title_msg, description)))
 }
 
 .assemble_talk_basics_msg <- function(title_msg, description) {
@@ -189,23 +189,6 @@ gen_deck_section_titles <- function(title,
       call = call
     )
   }
-}
-
-.maybe_gen_section_titles <- function(section_titles,
-                                      title,
-                                      description,
-                                      minutes,
-                                      ...) {
-  if (is.null(section_titles)) {
-    section_titles <- gen_deck_section_titles(
-      title,
-      ...,
-      description = description,
-      minutes = minutes
-    )
-    return(section_titles)
-  }
-  return(.to_section_titles(section_titles))
 }
 
 #' Update minutes component of section_titles

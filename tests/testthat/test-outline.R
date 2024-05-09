@@ -109,3 +109,12 @@ test_that(".to_outline fails for weird lists", {
     error = TRUE
   )
 })
+
+test_that(".to_outline triggers properly for outlines", {
+  given <- list(A = c("A1", "A2"), B = c("B1", "B2"))
+  test_result1 <- .to_outline(given)
+  expected_result <- given
+  class(expected_result) <- c("robodeck_outline", "list")
+  expect_identical(test_result1, expected_result)
+  expect_identical(test_result1, .to_outline(test_result1))
+})
