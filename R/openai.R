@@ -67,10 +67,12 @@ oai_call_api <- function(path,
                          data = NULL,
                          api_key = oai_get_default_key()) {
   rlang::check_dots_empty()
-
-  req <- httr2::req_url_path_append(base_request, path)
-  req <- httr2::req_method(req, "POST")
-  req <- httr2::req_body_json(req, data)
+  req <- nectar::req_modify(
+    base_request,
+    path = path,
+    body = data,
+    method = "POST"
+  )
   req <- httr2::req_timeout(req, 30)
   req <- httr2::req_auth_bearer_token(req, token = api_key)
   resp <- httr2::req_perform(req)
