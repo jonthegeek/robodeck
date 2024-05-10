@@ -57,12 +57,12 @@ slide deck.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gen_deck</span><span class="op">(</span></span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  api_key <span class="op">=</span> <span class="fu"><a href="oai_get_default_key.html">oai_get_default_key</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  description <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  minutes <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  section_titles <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  outline <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  additional_information <span class="op">=</span></span>
-<span>    <span class="st">"The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists."</span></span>
+<span>  additional_information <span class="op">=</span> <span class="fu"><a href="robodock_slide_style.html">robodock_slide_style</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -74,6 +74,10 @@ slide deck.</p>
 
 <dt>...</dt>
 <dd><p>Additional parameters passed on to the OpenAI Chat Completion API.</p></dd>
+
+
+<dt>api_key</dt>
+<dd><p>An OpenAI API key.</p></dd>
 
 
 <dt>description</dt>

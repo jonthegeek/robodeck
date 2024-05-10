@@ -25,9 +25,6 @@
     <loc>https://jonthegeek.github.io/robodeck/index.html</loc>
   </url>
   <url>
-    <loc>https://jonthegeek.github.io/robodeck/reference/call_oai.html</loc>
-  </url>
-  <url>
     <loc>https://jonthegeek.github.io/robodeck/reference/dot-shared-parameters.html</loc>
   </url>
   <url>
@@ -46,7 +43,19 @@
     <loc>https://jonthegeek.github.io/robodeck/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://jonthegeek.github.io/robodeck/reference/oai_call_api.html</loc>
+  </url>
+  <url>
+    <loc>https://jonthegeek.github.io/robodeck/reference/oai_get_default_key.html</loc>
+  </url>
+  <url>
+    <loc>https://jonthegeek.github.io/robodeck/reference/oai_set_key.html</loc>
+  </url>
+  <url>
     <loc>https://jonthegeek.github.io/robodeck/reference/robodeck-package.html</loc>
+  </url>
+  <url>
+    <loc>https://jonthegeek.github.io/robodeck/reference/robodock_slide_style.html</loc>
   </url>
   <url>
     <loc>https://jonthegeek.github.io/robodeck/reference/update_section_title_minutes.html</loc>

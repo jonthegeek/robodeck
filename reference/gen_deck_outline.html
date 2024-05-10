@@ -54,6 +54,7 @@ conference talk.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gen_deck_outline</span><span class="op">(</span></span>
 <span>  <span class="va">title</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  api_key <span class="op">=</span> <span class="fu"><a href="oai_get_default_key.html">oai_get_default_key</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  description <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  minutes <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  section_titles <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -68,6 +69,10 @@ conference talk.</p>
 
 <dt>...</dt>
 <dd><p>Additional parameters passed on to the OpenAI Chat Completion API.</p></dd>
+
+
+<dt>api_key</dt>
+<dd><p>An OpenAI API key.</p></dd>
 
 
 <dt>description</dt>
