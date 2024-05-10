@@ -5,6 +5,7 @@
 #' slide deck.
 #'
 #' @inheritParams .shared-parameters
+#' @inheritParams oai_call_api
 #' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
 #' @param outline A list of character vectors as returned by
 #'   [gen_deck_outline()]. The name of each vector is the title of a major
@@ -18,14 +19,16 @@
 #' @export
 gen_deck <- function(title,
                      ...,
+                     api_key = oai_get_default_key(),
                      description = NULL,
                      minutes = NULL,
                      section_titles = NULL,
                      outline = NULL,
-                     additional_information = "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists.") {
+                     additional_information = robodock_slide_style()) {
   result <- .gen_deck_raw(
     title,
     ...,
+    api_key = api_key,
     description = description,
     minutes = minutes,
     section_titles = section_titles,
@@ -36,8 +39,25 @@ gen_deck <- function(title,
   return(.to_deck(result))
 }
 
+#' Description of the overall feel of the slides
+#'
+#' This is a placeholder for an upcoming, more complex function.
+#'
+#' @return A string describing the style of the slides.
+#' @export
+#'
+#' @examples
+#' robodock_slide_style()
+robodock_slide_style <- function() {
+  paste(
+    "The tone of the talk should be fun and upbeat.",
+    "Use an emoji at the start of every bullet in bulleted lists."
+  )
+}
+
 .gen_deck_raw <- function(title,
                           ...,
+                          api_key = oai_get_default_key(),
                           description,
                           minutes,
                           section_titles,
@@ -72,6 +92,7 @@ gen_deck <- function(title,
       outline = outline,
       additional_information
     ),
+    api_key = api_key,
     !!!dots
   )
   return(.trim_deck(deck, outline))
@@ -223,4 +244,24 @@ gen_deck <- function(title,
 #' @export
 .to_deck.robodeck_deck <- function(content, ...) {
   return(content)
+}
+
+.maybe_gen_outline <- function(outline,
+                               title,
+                               description,
+                               minutes,
+                               section_titles,
+                               ...) {
+  if (is.null(outline)) {
+    return(
+      gen_deck_outline(
+        title,
+        ...,
+        description = description,
+        minutes = minutes,
+        section_titles = section_titles
+      )
+    )
+  }
+  return(.to_outline(outline))
 }

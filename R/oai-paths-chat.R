@@ -1,41 +1,6 @@
-# nocov start
-
-# I'll eventually either use one of the other OpenAI packages or beekeep my own.
-
-base_request <- httr2::req_user_agent(
-  httr2::request("https://api.openai.com/v1"),
-  "robodeck (https://jonthegeek.github.io/robodeck/)"
-)
-
-#' Call an openapi API
-#'
-#' Generate a request to an openapi endpoint.
-#'
-#' @inheritParams rlang::args_dots_empty
-#' @inheritParams httr2::req_body_json
-#' @param path The route to an API endpoint.
-#' @param api_key An OpenAI API key.
-#'
-#' @return The response from the endpoint.
-#' @keywords internal
-call_oai <- function(path,
-                     ...,
-                     data = NULL,
-                     api_key = Sys.getenv("OPENAI_API_KEY")) {
-  rlang::check_dots_empty()
-
-  req <- httr2::req_url_path_append(base_request, path)
-  req <- httr2::req_method(req, "POST")
-  req <- httr2::req_body_json(req, data)
-  req <- httr2::req_timeout(req, 30)
-  req <- httr2::req_auth_bearer_token(req, token = api_key)
-  resp <- httr2::req_perform(req)
-  resp <- httr2::resp_body_json(resp)
-  return(resp)
-}
-
 oai_create_chat_completion <- function(messages,
                                        ...,
+                                       api_key = oai_get_default_key(),
                                        model = c(
                                          "gpt-3.5-turbo",
                                          "gpt-4-turbo-preview"
@@ -63,8 +28,9 @@ oai_create_chat_completion <- function(messages,
   }
   model <- rlang::arg_match(model)
 
-  result <- call_oai(
+  result <- oai_call_api(
     path = "chat/completions",
+    api_key = api_key,
     data = list(
       messages = messages,
       model = model,
@@ -86,7 +52,8 @@ oai_create_chat_completion <- function(messages,
   )
 }
 
-.validate_create_chat_completion_dots <- function(..., default_max_tokens = 100) {
+.validate_create_chat_completion_dots <- function(...,
+                                                  default_max_tokens = 100) {
   dots <- rlang::list2(...)
   if (length(dots$n)) {
     cli::cli_warn(
@@ -127,5 +94,3 @@ oai_create_chat_completion <- function(messages,
     class = "robodeck_error_no_choices"
   )
 }
-
-# nocov end

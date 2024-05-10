@@ -7,18 +7,20 @@
 gen_deck(
   title,
   ...,
+  api_key = oai_get_default_key(),
   description = NULL,
   minutes = NULL,
   section_titles = NULL,
   outline = NULL,
-  additional_information =
-    "The tone of the talk should be fun and upbeat. Use an emoji at the start of every bullet in bulleted lists."
+  additional_information = robodock_slide_style()
 )
 }
 \arguments{
 \item{title}{The title of the talk.}
 
 \item{...}{Additional parameters passed on to the OpenAI Chat Completion API.}
+
+\item{api_key}{An OpenAI API key.}
 
 \item{description}{(optional) A description of the talk (or any other text you
 would like to add to the prompt).}

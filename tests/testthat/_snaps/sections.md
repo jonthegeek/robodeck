@@ -24,7 +24,7 @@
       [1] "user"
       
       [[3]]$content
-      Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'.
+      [1] "Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'."
       
       
 
@@ -55,7 +55,7 @@
       [1] "user"
       
       [[3]]$content
-      Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. My description
+      [1] "Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. My description"
       
       
 
@@ -85,7 +85,7 @@
       [1] "user"
       
       [[3]]$content
-      Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. The talk is 20 minutes long. It should have between 4 and 10 sections.
+      [1] "Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. The talk is 20 minutes long. It should have between 4 and 10 sections."
       
       
 
@@ -116,7 +116,7 @@
       [1] "user"
       
       [[3]]$content
-      Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. The talk is 20 minutes long. It should have between 4 and 10 sections. My description
+      [1] "Perfect! Now create a comma-separated list of titles for the major sections of a conference talk titled 'My Talk'. The talk is 20 minutes long. It should have between 4 and 10 sections. My description"
       
       
 

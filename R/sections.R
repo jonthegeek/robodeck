@@ -3,6 +3,7 @@
 #' Generate a list of titles for the major sections of a conference talk.
 #'
 #' @inheritParams .shared-parameters
+#' @inheritParams oai_call_api
 #' @param ... Additional parameters passed on to the OpenAI Chat Completion API.
 #'
 #' @return A list of lists, each of which contains a title for a major sections
@@ -10,11 +11,13 @@
 #' @export
 gen_deck_section_titles <- function(title,
                                     ...,
+                                    api_key = oai_get_default_key(),
                                     description = NULL,
                                     minutes = NULL) {
   result <- .gen_section_titles_raw(
     title,
     ...,
+    api_key = api_key,
     description = description,
     minutes = minutes
   )
@@ -24,6 +27,7 @@ gen_deck_section_titles <- function(title,
 
 .gen_section_titles_raw <- function(title,
                                     ...,
+                                    api_key = oai_get_default_key(),
                                     description,
                                     minutes) {
   dots <- .validate_create_chat_completion_dots(...)
@@ -34,6 +38,7 @@ gen_deck_section_titles <- function(title,
         description = description,
         minutes = minutes
       ),
+      api_key = api_key,
       !!!dots
     )
   )
@@ -65,7 +70,7 @@ gen_deck_section_titles <- function(title,
     c(title_msg, .assemble_section_time_msg(minutes)),
     sep = " "
   )
-  return(.assemble_talk_basics_msg(title_msg, description))
+  return(unclass(.assemble_talk_basics_msg(title_msg, description)))
 }
 
 .assemble_talk_basics_msg <- function(title_msg, description) {
@@ -184,23 +189,6 @@ gen_deck_section_titles <- function(title,
       call = call
     )
   }
-}
-
-.maybe_gen_section_titles <- function(section_titles,
-                                      title,
-                                      description,
-                                      minutes,
-                                      ...) {
-  if (is.null(section_titles)) {
-    section_titles <- gen_deck_section_titles(
-      title,
-      ...,
-      description = description,
-      minutes = minutes
-    )
-    return(section_titles)
-  }
-  return(.to_section_titles(section_titles))
 }
 
 #' Update minutes component of section_titles
