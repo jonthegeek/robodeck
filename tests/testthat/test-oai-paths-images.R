@@ -1,9 +1,14 @@
 with_mock_dir("api/paths/images", {
   test_that("oai_create_image works with simple input", {
-    image_pngs <- oai_create_image("Testing")
-    image_path <- withr::local_tempfile(fileext = ".png")
-    magick::image_write(image_pngs[[1]], image_path, format = "png")
-    expect_snapshot_file(image_path, name = "oai_create_image_testing.png")
+    local_mocked_bindings(
+      .raw_to_magick = function(raw_image) raw_image
+    )
+    images <- oai_create_image("Testing")
+    # Comparing pngs had subtle differences between operating systems. Instead
+    # let's re-encode the data and compare it raw.
+    expect_snapshot({
+      jsonlite::base64_enc(images[[1]])
+    })
   })
 })
 

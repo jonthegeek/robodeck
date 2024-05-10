@@ -105,9 +105,13 @@ oai_create_image <- function(prompt,
                                        call = rlang::caller_env()) {
   if (length(result$data)) {
     images <- purrr::map(result$data, \(this_data) {
-      magick::image_read(jsonlite::base64_dec(this_data$b64_json))
+      .raw_to_magick(jsonlite::base64_dec(this_data$b64_json))
     })
     return(images)
   }
   cli::cli_abort("No images returned.", class = "robodeck_error_no_images")
+}
+
+.raw_to_magick <- function(raw_image) {
+  magick::image_read(raw_image) # nocov
 }
