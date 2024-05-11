@@ -137,6 +137,6 @@ test_that(".to_deck passes through a robodeck_deck", {
   expect_identical(.to_deck(deck), deck)
 })
 
-test_that("robodock_slide_style() returns expected text", {
-  expect_snapshot(robodock_slide_style())
+test_that("robodeck_slide_style() returns expected text", {
+  expect_snapshot(robodeck_slide_style())
 })

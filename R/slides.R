@@ -24,7 +24,7 @@ gen_deck <- function(title,
                      minutes = NULL,
                      section_titles = NULL,
                      outline = NULL,
-                     additional_information = robodock_slide_style()) {
+                     additional_information = robodeck_slide_style()) {
   result <- .gen_deck_raw(
     title,
     ...,
@@ -47,8 +47,8 @@ gen_deck <- function(title,
 #' @export
 #'
 #' @examples
-#' robodock_slide_style()
-robodock_slide_style <- function() {
+#' robodeck_slide_style()
+robodeck_slide_style <- function() {
   paste(
     "The tone of the talk should be fun and upbeat.",
     "Use an emoji at the start of every bullet in bulleted lists."
