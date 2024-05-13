@@ -3,7 +3,9 @@ oai_create_chat_completion <- function(messages,
                                        api_key = oai_get_default_key(),
                                        model = c(
                                          "gpt-3.5-turbo",
-                                         "gpt-4-turbo-preview"
+                                         "gpt-4o",
+                                         "gpt-4-turbo",
+                                         "gpt-4"
                                        ),
                                        frequency_penalty = 0,
                                        logit_bias = NULL,
