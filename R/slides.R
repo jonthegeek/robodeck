@@ -200,7 +200,10 @@ robodeck_slide_style <- function() {
   if (isTRUE(nzchar(deck)) && !is.na(deck)) {
     trimmed <- .remove_deck_beginning_noise(deck, outline)
     if (nzchar(trimmed)) {
-      return(.remove_deck_end_noise(trimmed))
+      trimmed <- .remove_deck_end_noise(trimmed)
+    }
+    if (nzchar(trimmed)) {
+      return(.remove_deck_middle_noise(trimmed))
     }
   }
   return(deck)
@@ -214,6 +217,10 @@ robodeck_slide_style <- function() {
 
 .remove_deck_end_noise <- function(deck) {
   return(stringr::str_remove(deck, "(\\s*```\\s*)+$"))
+}
+
+.remove_deck_middle_noise <- function(deck) {
+  return(stringr::str_replace_all(deck, "---\\s+#", "#"))
 }
 
 .to_deck <- function(content, ..., call = rlang::caller_env()) {
