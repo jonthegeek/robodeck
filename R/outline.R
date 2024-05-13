@@ -90,11 +90,13 @@ gen_deck_outline <- function(title,
                                   description,
                                   minutes,
                                   section_titles) {
-  title_msg <- glue::glue("Great! Now generate slide titles for a conference talk titled '{title}'.")
+  title_msg <- .glue_special(
+    "Great! Now generate slide titles for a conference talk titled '{[{title}]}'."
+  )
   title_msg <- glue::glue_collapse(
     c(
       title_msg,
-      glue::glue("The talk is {minutes} minutes long.")
+      .glue_special("The talk is {[{minutes}]} minutes long.")
     ),
     sep = " "
   )
@@ -104,7 +106,7 @@ gen_deck_outline <- function(title,
   )
   section_titles_prompt <- .assemble_section_titles_prompt(section_titles)
   return(
-    glue::glue(
+    .glue_special(
       talk_basics_msg,
       section_titles_prompt,
       "Generate at least one slide title for each section, about 1 title per minute.",
@@ -122,15 +124,15 @@ gen_deck_outline <- function(title,
     ),
     sep = ", "
   )
-  return(glue::glue("Sections: {section_descriptions}."))
+  return(.glue_special("Sections: {[{section_descriptions}]}."))
 }
 
 .assemble_section_title_prompt <- function(section_title) {
   return(
     glue::glue_collapse(
       c(
-        glue::glue("'{section_title$title}'"),
-        glue::glue("({section_title$minutes} minutes)")
+        .glue_special("'{[{section_title$title}]}'"),
+        .glue_special("({[{section_title$minutes}]} minutes)")
       ),
       sep = " "
     )

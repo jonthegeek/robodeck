@@ -40,8 +40,8 @@ gen_image <- function(prompt,
   talk_title <- .add_period(talk_title)
   talk_description <- .add_period(talk_description)
 
-  talk_title <- glue::glue("For a talk titled {talk_title}.")
-  talk_description <- glue::glue("Talk description: {talk_description}")
+  talk_title <- .glue_special("For a talk titled {[{talk_title}]}.")
+  talk_description <- .glue_special("Talk description: {[{talk_description}]}")
 
   prompt_pieces <- c(prompt, talk_title, talk_description)
   glue::glue_collapse(prompt_pieces, sep = " ")
