@@ -12,7 +12,7 @@ gen_deck(
   minutes = NULL,
   section_titles = NULL,
   outline = NULL,
-  additional_information = robodock_slide_style()
+  additional_information = robodeck_slide_style()
 )
 }
 \arguments{

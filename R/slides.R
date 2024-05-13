@@ -24,7 +24,7 @@ gen_deck <- function(title,
                      minutes = NULL,
                      section_titles = NULL,
                      outline = NULL,
-                     additional_information = robodock_slide_style()) {
+                     additional_information = robodeck_slide_style()) {
   result <- .gen_deck_raw(
     title,
     ...,
@@ -47,8 +47,8 @@ gen_deck <- function(title,
 #' @export
 #'
 #' @examples
-#' robodock_slide_style()
-robodock_slide_style <- function() {
+#' robodeck_slide_style()
+robodeck_slide_style <- function() {
   paste(
     "The tone of the talk should be fun and upbeat.",
     "Use an emoji at the start of every bullet in bulleted lists."
@@ -126,10 +126,10 @@ robodock_slide_style <- function() {
                                additional_information) {
   title_msg <- glue::glue_collapse(
     c(
-      glue::glue(
-        "Generate Quarto markdown to produce revealjs slides for a conference talk titled '{title}'."
+      .glue_special(
+        "Generate Quarto markdown to produce revealjs slides for a conference talk titled '{[{title}]}'."
       ),
-      glue::glue("The talk should take {minutes} minutes to deliver.")
+      .glue_special("The talk should take {[{minutes}]} minutes to deliver.")
     ),
     sep = " "
   )
@@ -172,10 +172,10 @@ robodock_slide_style <- function() {
     sep = "\n\n"
   )
   return(
-    glue::glue(
+    .glue_special(
       "In this outline, # indicates a section, and ## indicates a slide within a section.",
       "Use these slide titles:",
-      "{outline_descriptions}",
+      "{[{outline_descriptions}]}",
       .sep = "\n\n"
     )
   )
@@ -188,8 +188,8 @@ robodock_slide_style <- function() {
   )
 
   return(
-    glue::glue(
-      "# {section_title}",
+    .glue_special(
+      "# {[{section_title}]}",
       slide_headers,
       .sep = "\n\n"
     )
@@ -208,7 +208,7 @@ robodock_slide_style <- function() {
 
 .remove_deck_beginning_noise <- function(deck, outline) {
   title_1 <- stringr::str_escape(names(outline)[[1]])
-  pattern <- glue::glue("^((.|\\n)*)(# {title_1}(.|\\n)*$)")
+  pattern <- .glue_special("^((.|\\n)*)(# {[{title_1}]}(.|\\n)*$)")
   return(stringr::str_extract(deck, pattern, group = 3))
 }
 
