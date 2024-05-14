@@ -77,6 +77,13 @@ test_that("gen_image generates an image with valid inputs", {
   )
 })
 
+test_that(".save_image errors with length mismatch", {
+  expect_error(
+    .save_image(letters, "a"),
+    class = "robodeck_error-length_mismatch"
+  )
+})
+
 test_that("gen_image saves when path provided", {
   local_mocked_bindings(
     oai_create_image = function(prompt, ...) {

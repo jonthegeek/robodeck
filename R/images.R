@@ -121,10 +121,17 @@ gen_image <- function(prompt,
 .save_image <- function(image, image_path = NULL) {
   if (length(image_path)) {
     image_path <- stbl::stabilize_chr(unclass(image_path))
-    if (length(image_path) == length(image)) {
-      purrr::walk2(image, image_path, .write_png)
+    if (length(image_path) != length(image)) {
+      cli::cli_abort(
+        c(
+          "{.arg image_path} must have the same length as {.arg image}.",
+          i = "{.arg image_path} has {length(image_path)} value{?s}.",
+          i = "{.arg image} has {length(image)} value{?s}."
+        ),
+        class = "robodeck_error-length_mismatch"
+      )
     }
-
+    purrr::walk2(image, image_path, .write_png)
   }
   return(image)
 }
