@@ -82,7 +82,7 @@ test_that("gen_image saves when path provided", {
     oai_create_image = function(prompt, ...) {
       return(prompt)
     },
-    image_write = function(image, image_path, ...) {
+    .write_png = function(image, image_path) {
       cli::cli_warn("Saving {image} to {image_path}")
     }
   )

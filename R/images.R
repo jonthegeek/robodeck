@@ -49,7 +49,8 @@ gen_image <- function(prompt,
     prompt = prompt,
     api_key = api_key,
     size = image_size,
-    call = call
+    call = call,
+    ...
   )
 }
 
@@ -119,8 +120,15 @@ gen_image <- function(prompt,
 
 .save_image <- function(image, image_path = NULL) {
   if (length(image_path)) {
-    image_path <- stbl::stabilize_chr_scalar(unclass(image_path))
-    image_write(image, image_path, format = "png")
+    image_path <- stbl::stabilize_chr(unclass(image_path))
+    if (length(image_path) == length(image)) {
+      purrr::walk2(image, image_path, .write_png)
+    }
+
   }
   return(image)
+}
+
+.write_png <- function(image, image_path) {
+  magick::image_write(image, image_path, format = "png") # nocov
 }
