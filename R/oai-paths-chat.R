@@ -77,7 +77,7 @@ oai_create_chat_completion <- function(messages,
     }
     cli::cli_abort(
       "The result must include a single completion.",
-      class = "robodeck_error_multiple_completions"
+      class = "robodeck_error-multiple_completions"
     )
   }
   msg <- "Object is empty."
@@ -93,6 +93,6 @@ oai_create_chat_completion <- function(messages,
       "OpenAI Chat Completion result must include a 'choices' object.",
       "i" = msg
     ),
-    class = "robodeck_error_no_choices"
+    class = "robodeck_error-no_choices"
   )
 }

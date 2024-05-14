@@ -124,7 +124,7 @@ test_that("gen_deck returns a robodeck_deck with the markdown", {
 test_that(".to_deck fails informatively", {
   expect_error(
     .to_deck(1),
-    class = "robodeck_error_invalid_deck"
+    class = "robodeck_error-invalid_deck"
   )
   expect_snapshot(
     .to_deck(1),

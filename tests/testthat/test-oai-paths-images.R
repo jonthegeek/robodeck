@@ -18,19 +18,33 @@ test_that("oai_create_image fails gracefully with bad prompt", {
       bad_prompt <- stringr::str_dup("x", 1001)
       oai_create_image(bad_prompt)
     },
-    class = "robodeck_error_image_prompt_length"
+    class = "robodeck_error-prompt_length"
   )
 })
 
-test_that("oai_create_image validates inputs", {
+test_that("oai_create_image validates quality", {
   expect_error(
     {oai_create_image("Testing", model = "dall-e-3", quality = "high")},
     '"standard" or "hd"'
+  )
+})
+
+test_that("oai_create_image validates size", {
+  expect_error(
+    {oai_create_image("Testing", size = "bad")},
+    '"256x256"'
+  )
+  expect_error(
+    {oai_create_image("Testing", size = "1792x1024")},
+    '"256x256"'
   )
   expect_error(
     {oai_create_image("Testing", model = "dall-e-3")},
     '"1024x1024", "1792x1024"'
   )
+})
+
+test_that("oai_create_image validates style", {
   expect_error(
     {
       oai_create_image(
@@ -48,6 +62,6 @@ test_that("oai_create_image validates inputs", {
 test_that(".extract_oai_image_content fails gracefully with bad data", {
   expect_error(
     {.extract_oai_image_content(list())},
-    class = "robodeck_error_no_images"
+    class = "robodeck_error-no_images"
   )
 })

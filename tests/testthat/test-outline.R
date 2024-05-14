@@ -91,7 +91,7 @@ test_that("gen_deck_outline returns a list of section titles with nested slide t
 test_that(".to_outline fails informatively", {
   expect_error(
     .to_outline(1),
-    class = "robodeck_error_invalid_outline"
+    class = "robodeck_error-invalid_outline"
   )
   expect_snapshot(
     .to_outline(1),
@@ -102,7 +102,7 @@ test_that(".to_outline fails informatively", {
 test_that(".to_outline fails for weird lists", {
   expect_error(
     .to_outline(list(1, 2)),
-    class = "robodeck_error_invalid_outline"
+    class = "robodeck_error-invalid_outline"
   )
   expect_snapshot(
     .to_outline(list(1, 2)),
