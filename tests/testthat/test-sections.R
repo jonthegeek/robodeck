@@ -70,7 +70,7 @@ test_that(".to_section_titles errors for weird cases", {
     {
       .to_section_titles(1)
     },
-    class = "robodeck_error_invalid_section_titles"
+    class = "robodeck_error-invalid_section_titles"
   )
   expect_snapshot(
     {
@@ -83,7 +83,7 @@ test_that(".to_section_titles errors for weird cases", {
     {
       .to_section_titles(list(list("nonames")))
     },
-    class = "robodeck_error_invalid_section_title"
+    class = "robodeck_error-invalid_section_title"
   )
   expect_snapshot(
     {
@@ -96,7 +96,7 @@ test_that(".to_section_titles errors for weird cases", {
     {
       .to_section_titles(list(1))
     },
-    class = "robodeck_error_invalid_section_title"
+    class = "robodeck_error-invalid_section_title"
   )
   expect_snapshot(
     {

@@ -233,7 +233,7 @@ robodeck_slide_style <- function() {
                              call = rlang::caller_env()) {
   cli::cli_abort(
     "{.arg content} must be a character vector or NULL.",
-    class = "robodeck_error_invalid_deck",
+    class = "robodeck_error-invalid_deck",
     call = call
   )
 }

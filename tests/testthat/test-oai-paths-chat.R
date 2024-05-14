@@ -30,7 +30,7 @@ test_that("Chat completion parsing fails gracefully with multiple resutls", {
         )
       )
     },
-    class = "robodeck_error_multiple_completions"
+    class = "robodeck_error-multiple_completions"
   )
 })
 
@@ -40,7 +40,7 @@ test_that("Chat completion parsing fails gracefully with multiple resutls", {
       .extract_oai_chat_completion_content(list(x = 1))
     },
     regexp = " named ",
-    class = "robodeck_error_no_choices"
+    class = "robodeck_error-no_choices"
   )
 })
 
@@ -50,7 +50,7 @@ test_that("Chat completion parsing fails gracefully with multiple resutls", {
       .extract_oai_chat_completion_content(list(1))
     },
     regexp = "unnamed",
-    class = "robodeck_error_no_choices"
+    class = "robodeck_error-no_choices"
   )
 })
 
@@ -60,6 +60,6 @@ test_that("Chat completion parsing fails gracefully with multiple resutls", {
       .extract_oai_chat_completion_content(list())
     },
     regexp = "empty",
-    class = "robodeck_error_no_choices"
+    class = "robodeck_error-no_choices"
   )
 })

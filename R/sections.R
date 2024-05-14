@@ -109,7 +109,7 @@ gen_deck_section_titles <- function(title,
                                        call = rlang::caller_env()) {
   cli::cli_abort(
     "{.arg section_titles} must be a character vector or a list.",
-    class = "robodeck_error_invalid_section_titles",
+    class = "robodeck_error-invalid_section_titles",
     call = call
   )
 }
@@ -158,7 +158,7 @@ gen_deck_section_titles <- function(title,
                                                     call = rlang::caller_env()) {
   cli::cli_abort(
     "{.arg section_title} elements must be character vectors or lists.",
-    class = "robodeck_error_invalid_section_title",
+    class = "robodeck_error-invalid_section_title",
     call = call
   )
 }
@@ -185,7 +185,7 @@ gen_deck_section_titles <- function(title,
   } else {
     cli::cli_abort(
       "{.arg section_title} list elements must have {.arg title} elements.",
-      class = "robodeck_error_invalid_section_title",
+      class = "robodeck_error-invalid_section_title",
       call = call
     )
   }
@@ -207,7 +207,7 @@ update_section_title_minutes <- function(section_titles, section_minutes) {
   if (length(section_titles) != length(section_minutes)) {
     cli::cli_abort(
       "The length of {.arg section_minutes} must match the length of {.arg section_titles}.",
-      class = "robodeck_error_invalid_section_title_minutes"
+      class = "robodeck_error-invalid_section_title_minutes"
     )
   }
   for (i in seq_along(section_titles)) {

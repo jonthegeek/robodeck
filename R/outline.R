@@ -149,7 +149,7 @@ gen_deck_outline <- function(title,
                                 call = rlang::caller_env()) {
   cli::cli_abort(
     "{.arg content} must be a character vector, list, or NULL.",
-    class = "robodeck_error_invalid_outline",
+    class = "robodeck_error-invalid_outline",
     call = call
   )
 }
@@ -177,7 +177,7 @@ gen_deck_outline <- function(title,
   }
   cli::cli_abort(
     "{.arg content} must be a named list of character vectors.",
-    class = "robodeck_error_invalid_outline",
+    class = "robodeck_error-invalid_outline",
     call = call
   )
 }
