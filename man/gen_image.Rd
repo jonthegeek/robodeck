@@ -33,6 +33,11 @@ would like to add to the prompt).}
 \code{"medium"} (512×512 pixels) or \code{"large"} (1024×1024 pixels).}
 
 \item{image_path}{An optional path where the image should be saved as a png.}
+
+\item{call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 }
 \value{
 A \code{\link[magick:editing]{magick::image_read()}} \code{magick-image} object.

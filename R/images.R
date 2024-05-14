@@ -5,6 +5,7 @@
 #'
 #' @inheritParams .shared-parameters
 #' @inheritParams oai_call_api
+#' @inheritParams rlang::args_error_context
 #' @param prompt A description of the image. Must contain 1000 or fewer
 #'   characters.
 #' @param ... Additional parameters passed on to the image generation API. We
